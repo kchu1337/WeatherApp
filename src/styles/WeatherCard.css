@@ -19,6 +19,7 @@
 }
 
 .weather-forecast {
+  margin-bottom: 10px;
   flex: 3;
   min-height: 50px;
 }
