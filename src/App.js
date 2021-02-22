@@ -1,19 +1,31 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import EditableSection from "./EditableSection";
 import WeatherCard from "./WeatherCard";
 import "./styles/App.css";
+import data from './data/test-data.json';
 
 const App = () => {
+    const [startDate, changeStartDate] = useState(new Date('Thu Feb 11 2021 00:00:00'));
+    const [endDate, changeEndDate] = useState(new Date('Thu Feb 11 2021 00:00:00'));
+    const [location, changeLocation] = useState('');
+
+
+    const changeLocationMemoized = useCallback(
+    (e) => {
+      changeLocation(e.target.value)
+    },
+    [changeLocation],
+  );
 
     return (
       <div className="App">
         <EditableSection
-          startDate={null}
-          endDate={null}
-          location={null}
-          onStartDateChange={() => {}}
-          onEndDateChange={() => {}}
-          onLocationChange={() => {}}
+          startDate={startDate}
+          endDate={endDate}
+          location={location}
+          onStartDateChange={changeStartDate}
+          onEndDateChange={changeEndDate}
+          onLocationChange={changeLocationMemoized}
         />
         <div className="editable-section">
           {[
