@@ -6,22 +6,27 @@ import data from './data/test-data.json';
 import {WEATHER_TYPE_MAP} from './constants'
 
 const App = () => {
-  const [startDate, changeStartDate] = useState(new Date('Wed Jan 01 2020 00:00:00'));
-  const [endDate, changeEndDate] = useState(new Date('Thu Feb 11 2021 00:00:00'));
+  const [startDate, changeStartDate] = useState(new Date());
+  const [endDate, changeEndDate] = useState(new Date());
   const [location, changeLocation] = useState('');
   const [weatherData, setWeatherData] = useState(new Map());
   const [filteredWeatherArray, setFilteredWeatherArray] = useState([]);
 
   useEffect(() => {
     const townMap = new Map();
+    let min = new Date();
+    let max = new Date(0);
     data.forEach(({date, town, weather}) => {
+      const dateObj = new Date(date);
+      min = Math.min(dateObj, min);
+      max = Math.max(dateObj, max);
       if (!townMap.has(town)) {
         townMap.set(
-          town, [{date: new Date(date), formattedDate: date, weather: WEATHER_TYPE_MAP[weather]}]
+          town, [{date: dateObj, formattedDate: date, weather: WEATHER_TYPE_MAP[weather]}]
         );
       } else {
         townMap.get(town).push(
-          {date: new Date(date), formattedDate: date, weather: WEATHER_TYPE_MAP[weather]}
+          {date: dateObj, formattedDate: date, weather: WEATHER_TYPE_MAP[weather]}
         );
       }
     });
@@ -32,20 +37,18 @@ const App = () => {
       const sortedWeather = value.sort(dateSorter);
       townMap.set(key, sortedWeather);
     });*/
+    changeStartDate(min);
+    changeEndDate(max);
     setWeatherData(townMap);
   }, []);
 
   useEffect(() => {
-    console.log('changing');
      if(!weatherData.has(location)){
        setFilteredWeatherArray([]);
      }else{
-       console.log('here');
-
        const weatherArray = weatherData.get(location).filter(({date}) => {
          return date <= endDate && date >= startDate;
        });
-       console.log(weatherArray);
        setFilteredWeatherArray(weatherArray);
      }
   }, [startDate, endDate, location, weatherData]);
@@ -68,7 +71,7 @@ const App = () => {
         onLocationChange={changeLocationMemoized}
       />
       <div className="editable-section">
-        {filteredWeatherArray.map((item, index) => (
+        {filteredWeatherArray.map((item) => (
           <WeatherCard
             date={item.formattedDate}
             weather={item.weather}
