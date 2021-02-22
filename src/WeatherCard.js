@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import "./styles/WeatherCard.css";
 
-class WeatherCard extends Component {
-  render() {
-    const { date, location, weather } = this.props;
+const WeatherCard = (props) => {
+    const { date, location, weather } = props;
     if (date) {
       let weatherClass = "sunny";
       if (weather === "Rainy") {
@@ -25,7 +24,6 @@ class WeatherCard extends Component {
       );
     }
     return <div></div>;
-  }
 }
 
 export default WeatherCard;

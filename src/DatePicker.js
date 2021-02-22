@@ -1,19 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import DateTimePicker from "react-datetime-picker";
 import "./styles/DatePicker.css";
 
-class DatePicker extends Component {
-  render() {
+const DatePicker = (props) => {
     return (
       <div className="inputWrapper">
-        <p>{this.props.title}</p>
+        <p>{props.title}</p>
         <DateTimePicker
-          onChange={this.props.onChange}
-          value={this.props.value}
+          onChange={props.onChange}
+          value={props.value}
         />
       </div>
     );
-  }
 }
 
 export default DatePicker;

@@ -1,20 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import "./styles/TextField.css";
 
-class TextField extends Component {
-  render() {
+const TextField = (props) => {
     return (
       <div className="inputWrapper">
-        <p>{this.props.title}</p>
+        <p>{props.title}</p>
         <input
           className="textField"
           type="text"
-          onChange={this.props.onChange}
-          value={this.props.value}
+          onChange={props.onChange}
+          value={props.value}
         />
       </div>
     );
-  }
 }
 
 export default TextField;

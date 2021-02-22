@@ -1,30 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import "./styles/EditableSection.css";
 import DatePicker from "./DatePicker.js";
 import TextField from "./TextField.js";
 
-class EditableSection extends Component {
-  render() {
+const EditableSection = (props) => {
+
     return (
       <div className="editable-section">
         <DatePicker
           title="Start Date"
-          onChange={this.props.onStartDateChange}
-          value={this.props.startDate}
+          onChange={props.onStartDateChange}
+          value={props.startDate}
         />
         <DatePicker
           title="End Date"
-          onChange={this.props.onEndDateChange}
-          value={this.props.endDate}
+          onChange={props.onEndDateChange}
+          value={props.endDate}
         />
         <TextField
           title="Location"
-          onChange={this.props.onLocationChange}
-          value={this.props.location}
+          onChange={props.onLocationChange}
+          value={props.location}
         />
       </div>
     );
-  }
 }
 
 export default EditableSection;

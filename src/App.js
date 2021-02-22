@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import EditableSection from "./EditableSection";
 import WeatherCard from "./WeatherCard";
 import "./styles/App.css";
 
-class App extends Component {
-  render() {
+const App = () => {
+
     return (
       <div className="App">
         <EditableSection
@@ -36,7 +36,6 @@ class App extends Component {
         </text>
       </div>
     );
-  }
 }
 
 export default App;
