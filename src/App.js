@@ -4,9 +4,10 @@ import WeatherCard from "./WeatherCard";
 import "./styles/App.css";
 import data from './data/test-data.json';
 import {WEATHER_TYPE_MAP} from './constants'
+import { isValidWeatherDataSet } from './helpers'
 
 const App = () => {
-  const [startDate, changeStartDate] = useState(new Date());
+  const [startDate, changeStartDate] = useState(new Date(new Date()- 1000 * 60 * 60 * 24 * 1));
   const [endDate, changeEndDate] = useState(new Date());
   const [location, changeLocation] = useState('');
   const [weatherData, setWeatherData] = useState(new Map());
@@ -14,12 +15,8 @@ const App = () => {
 
   useEffect(() => {
     const townMap = new Map();
-    let min = new Date();
-    let max = new Date(0);
-    data.forEach(({date, town, weather}) => {
+    data.filter(isValidWeatherDataSet).forEach(({date, town, weather}) => {
       const dateObj = new Date(date);
-      min = Math.min(dateObj, min);
-      max = Math.max(dateObj, max);
       if (!townMap.has(town)) {
         townMap.set(
           town, [{date: dateObj, formattedDate: date, weather: WEATHER_TYPE_MAP[weather]}]
@@ -30,15 +27,7 @@ const App = () => {
         );
       }
     });
-    /*const dateSorter = (b,a) => {
-      return b.date > a.date ? 1 : -1
-    };
-    townMap.forEach((value, key) => {
-      const sortedWeather = value.sort(dateSorter);
-      townMap.set(key, sortedWeather);
-    });*/
-    changeStartDate(min);
-    changeEndDate(max);
+
     setWeatherData(townMap);
   }, []);
 
@@ -71,18 +60,15 @@ const App = () => {
         onLocationChange={changeLocationMemoized}
       />
       <div className="editable-section">
-        {filteredWeatherArray.map((item) => (
+        {filteredWeatherArray.map(({formattedDate, weather}) => (
           <WeatherCard
-            date={item.formattedDate}
-            weather={item.weather}
+            date={formattedDate}
+            key={`${formattedDate}-${location}`}
             location={location}
+            weather={weather}
           />
         ))}
       </div>
-      <text>
-        TODO: Implement the visual application using the provided components
-        And by displaying data from test-data.csv or test-data.json
-      </text>
     </div>
   );
 }
