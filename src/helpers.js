@@ -9,13 +9,13 @@ import {WEATHER_TYPE_MAP} from './constants'
  */
 export const isValidWeatherDataSet = ({date, town, weather}) => {
 
-  if((!date && isNaN(Date.parse(date)))){
+  if(!date || isNaN(Date.parse(date))){
     return false;
   }
-  if (!(town && typeof town !== 'string')){
+  if (!town || typeof town !== 'string'){
     return false;
   }
-  if (!(weather && typeof weather === 'string' && WEATHER_TYPE_MAP[weather])){
+  if (!weather || typeof weather !== 'string' || !WEATHER_TYPE_MAP[weather]){
     return false;
   }
   return true;
