@@ -6,6 +6,7 @@ const TextField = (props) => {
       <div className="inputWrapper">
         <p>{props.title}</p>
         <input
+          data-testid={props.testId}
           className="textField"
           type="text"
           onChange={props.onChange}

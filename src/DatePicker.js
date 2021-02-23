@@ -8,6 +8,7 @@ const DatePicker = (props) => {
         <p>{props.title}</p>
         <DateTimePicker
           onChange={props.onChange}
+          nativeInputAriaLabel={props.testId}
           value={props.value}
         />
       </div>

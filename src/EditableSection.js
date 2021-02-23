@@ -10,16 +10,19 @@ const EditableSection = (props) => {
         <DatePicker
           title="Start Date"
           onChange={props.onStartDateChange}
+          testId="startDate"
           value={props.startDate}
         />
         <DatePicker
           title="End Date"
           onChange={props.onEndDateChange}
+          testId="endDate"
           value={props.endDate}
         />
         <TextField
           title="Location"
           onChange={props.onLocationChange}
+          testId="location"
           value={props.location}
         />
       </div>
