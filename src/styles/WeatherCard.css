@@ -28,6 +28,8 @@
 .weather-forecast.cloudy,
 .weather-forecast.partly-cloudy,
 .weather-forecast.sunny {
+  position: relative;
+  right: 3px;
   background-image: url("/weathericons.png");
   background-size: 200px;
 }
